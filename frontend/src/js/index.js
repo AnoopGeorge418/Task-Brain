@@ -26,3 +26,4 @@ document.addEventListener("DOMContentLoaded", () => {
     currentDateTimeYear.textContent = new Date().getFullYear();
 
 });
+

@@ -16,9 +16,8 @@ export function getDummyCreds() {
 }
 
 // Dummy credentials saving
-export function saveDummyCreds(newUser) {
-    getDummyCreds.push(newUser);
-    localStorage.setItem("dummyCreds", JSON.stringify(userDummyCredentials));
+export function saveDummyCreds(usersArray) {
+    localStorage.setItem("dummyCreds", JSON.stringify(usersArray));
 }
 
 

@@ -57,14 +57,6 @@ body {
     cursor: pointer;
 }
 
-.login_form p {
-    cursor: pointer;
-    color: black;;
-}
-
-.login_form p:hover {
-    color: rgb(56, 47, 47);
-}
 
 .successAndErrorMsg {
     position: absolute;

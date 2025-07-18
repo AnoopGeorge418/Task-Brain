@@ -1,50 +1,98 @@
+import { userDummyCredentials, saveDummyCreds, showAlert } from "../components/reusableFunctions.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const redirectToLogin = document.getElementsByClassName("loginLink")[0];
     const signUpBtn = document.getElementsByClassName("signUpBtn")[0];
-
-    // Replace it with Backend Connection
-    const userDummyCredentials = [];
+    const forgotPassword = document.getElementsByClassName("forgotPass")[0];
 
     redirectToLogin.onclick = () => {
         window.location.href = './login.html';
-    }
+    };
 
-    // form Inputs handling
+    // Form Inputs handling
     signUpBtn.onclick = () => {
-        let userNameValue = document.getElementById("userName").value.trim().toLowerCase();
+        
+        const userNameValue = document.getElementById("userName").value.trim().toLowerCase();
         const userEmailValue = document.getElementById("userEmail").value.trim().toLowerCase();
         const userPasswordValue = document.getElementById("userPassword").value.trim();
         const confirmedUserPasswordValue = document.getElementById("confirmedUserPassword").value.trim();
+       
+        const totalLengthOfuserName = userNameValue.length;
+        const hasLetter = /[a-zA-Z]/.test(userNameValue); // fixed a-zA-z typo
+        const hasNumber = /\d/.test(userNameValue);
+        const hasSymbol = /[^a-zA-Z0-9]/.test(userNameValue);
+        const isUserNameTaken = userDummyCredentials.some(user => user.userName === userNameValue);
+        const requiredDomain = "@gmail.com";
+        const isUserEmailTaken = userDummyCredentials.some(user => user.userEmail === userEmailValue);
+        const totalPasswordLength = userPasswordValue.length;
 
-        // TODO: checking - remove it later
-        console.log(userNameValue);
-        console.log(userEmailValue);
-        console.log(userPasswordValue);
-        console.log(confirmedUserPasswordValue);
-        
-        // make sure to check all feilds met its requirements
-            /* 
-                1. userName:
-                    - convert user inputs to small letters
-                    - accepts letters, numbers and symbols
-                    - check if this userName in dummy creds
-                2. userEmail: 
-                    - check if it is used in creds
-                    - check if it is a valid email 
-                    - give error message
-                3. password:
-                    - should be more than 12 in length
-                    - should include numbers, letters(both small and capial atleast 1 both), and symbols.
-                4. confirmed password:
-                    - shuld be same as password
+        console.log(userNameValue, userEmailValue, userPasswordValue, confirmedUserPasswordValue);
 
-            */
-        // every creds will be a seperate user - added to dummy creds as a sepearate user
-        // push the user creds to dummy creds as seperate object itself.
-        
-        
-        
-        
+        // === 1. UserName Validation ===
+        if (!userNameValue) {
+            showAlert("UserName required!", "error");
+            return;
+        } else if (totalLengthOfuserName < 5) {
+            showAlert("UserName should not be less than 5 characters!", "error");
+            return;
+        } else if (!hasLetter || !hasSymbol || !hasNumber) {
+            showAlert("UserName must include at least 1 number, 1 symbol, and letters.", "error");
+            return;
+        } else if (isUserNameTaken) {
+            showAlert("UserName is already in use! Choose a different one.", "error");
+            return;
+        };
+
+        // === 2. UserEmail Validation ===
+        if (!userEmailValue) {
+            showAlert("UserEmail is Required!", "error");
+            return;
+        } else if (!userEmailValue.endsWith(requiredDomain)) {
+            showAlert("Please enter a valid Email address!", "error");
+            return;
+        } else if (isUserEmailTaken) {
+            showAlert("UserEmail is already in Exist! Try Loggin in.", "error");
+            return;
+        };
+
+        // === 3. UserPassword Validation ===
+        if (!userPasswordValue) {
+            showAlert("Please enter the password", "error");
+            return;
+        } else if (totalPasswordLength < 10) {
+            showAlert("Password should be more than 10 character.");
+            return;
+        } else if (!hasLetter || !hasNumber || !hasSymbol) {
+            showAlert("UserPassword must include at least 1 number, 1 symbol, and letters.", "error");
+            return;
+        };
+
+        // === 4. Confirmed UserPassword Validation ===
+        if (!confirmedUserPasswordValue) {
+            showAlert("Please confirm the password", "error");
+            return;
+        } else if (confirmedUserPasswordValue !== userPasswordValue){
+            showAlert("Both Passweords should be same!", "error");
+            return;
+        };
+
+        // Pushing the fetched data to dummy creds
+        saveDummyCreds({
+            userName: userNameValue,
+            userEmail: userEmailValue,
+            userPassword: userPasswordValue,
+        });
+
+        // clearing inputs
+        document.querySelectorAll("input").forEach(input => input.value = "");
+
+        showAlert("Account Created Successfully!!", "success");
+        window.location.href = './login.html';
+    };
+
+    forgotPassword.onclick = () => {
+        window.location.href = "./fogotPassword.html";
     }
+
 });

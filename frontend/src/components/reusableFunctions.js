@@ -11,11 +11,13 @@ export function showAlert(message, type = "error") {
 }
 
 // Dummy credentials loading
-export const userDummyCredentials = JSON.parse(localStorage.getItem("dummyCreds")) || [];
+export function getDummyCreds() {
+    return JSON.parse(localStorage.getItem("dummyCreds")) || [];
+}
 
 // Dummy credentials saving
 export function saveDummyCreds(newUser) {
-    userDummyCredentials.push(newUser);
+    getDummyCreds.push(newUser);
     localStorage.setItem("dummyCreds", JSON.stringify(userDummyCredentials));
 }
 

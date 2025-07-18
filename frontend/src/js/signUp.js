@@ -1,14 +1,15 @@
-import { userDummyCredentials, saveDummyCreds, showAlert } from "../components/reusableFunctions.js";
+import { getDummyCreds, saveDummyCreds, showAlert } from "../components/reusableFunctions.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const redirectToLogin = document.getElementsByClassName("loginLink")[0];
     const signUpBtn = document.getElementsByClassName("signUpBtn")[0];
-    const forgotPassword = document.getElementsByClassName("forgotPass")[0];
 
     redirectToLogin.onclick = () => {
-        window.location.href = './login.html';
-    };
+        setTimeout(() => {
+            window.location.href = './login.html';
+        }, "500")
+    }
 
     // Form Inputs handling
     signUpBtn.onclick = () => {
@@ -22,9 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const hasLetter = /[a-zA-Z]/.test(userNameValue); // fixed a-zA-z typo
         const hasNumber = /\d/.test(userNameValue);
         const hasSymbol = /[^a-zA-Z0-9]/.test(userNameValue);
-        const isUserNameTaken = userDummyCredentials.some(user => user.userName === userNameValue);
+
+        const users = getDummyCreds();
+        const isUserNameTaken = users.some(user => user.userName === userNameValue);
         const requiredDomain = "@gmail.com";
-        const isUserEmailTaken = userDummyCredentials.some(user => user.userEmail === userEmailValue);
+        const isUserEmailTaken = users.some(user => user.userEmail === userEmailValue);
         const totalPasswordLength = userPasswordValue.length;
 
         console.log(userNameValue, userEmailValue, userPasswordValue, confirmedUserPasswordValue);
@@ -87,12 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // clearing inputs
         document.querySelectorAll("input").forEach(input => input.value = "");
 
-        showAlert("Account Created Successfully!!", "success");
-        window.location.href = './login.html';
+        showAlert("Account created successful!! Redirecting...", "success");
+        setTimeout(() => {
+            window.location.href = './login.html';
+        }, "1000");
     };
-
-    forgotPassword.onclick = () => {
-        window.location.href = "./fogotPassword.html";
-    }
 
 });

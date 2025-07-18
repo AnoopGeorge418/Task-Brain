@@ -1,29 +1,54 @@
+import { getDummyCreds, saveDummyCreds, showAlert } from "../components/reusableFunctions.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const signUpLink = document.getElementsByClassName("signUpLink")[0];
     const loginBtn = document.getElementsByClassName("loginBtn")[0];
+    const forgotPassword = document.getElementsByClassName("forgotPass")[0];
 
     signUpLink.onclick = () => {
-        console.log("clicked");
-        window.location.href = "./signUp.html";
+        setTimeout(() => {
+            window.location.href = "./signUp.html";
+        }, "500")
+    }
+
+    forgotPassword.onclick = () => {
+        setTimeout(() => {
+            window.location.href = "./forgotPassword.html";
+        }, "500")
     }
 
     loginBtn.onclick = () => {
-        let userEmailValue = document.getElementById("userEmail").value;
-        let userPasswordValue = document.getElementById("userPassword").value;
+        let userEmailValue = document.getElementById("userEmail").value.toLowerCase().trim();
+        let userPasswordValue = document.getElementById("userPassword").value.trim();
 
-        // Replace it with Backend Connection
-        userDummyCredentials = [{
-            userEmail: "anoopgeorge418@gmail.com",
-            userPassword: "47426951",
-        }];
+        const users = getDummyCreds();
+        const foundUser = users.find(user =>
+            user.userName.toLowerCase() === userEmailValue || 
+            user.userEmail.toLowerCase() === userEmailValue
+        );
 
-        if (userEmailValue === userDummyCredentials[0].userEmail && userPasswordValue === userDummyCredentials[0].userPassword) {
-            console.log(`Email and Password Matched Logging In!`);
-            window.location.href = './dashboard.html';
+        if (!userEmailValue) {
+            showAlert("Email or userName is Required", "error")
+            return;
+        } else if (!userPasswordValue) {
+            showAlert("Password is Required", "error")
+            return;
+        } else if (!foundUser) {
+            showAlert("User not found! Try again or sign up.", "error");
+            return;
+        } else if (foundUser.userPassword !== userPasswordValue) {
+            showAlert("Password didn't mached! Try again or Reset the password by clicking Forgot Password.", "error");
+            return;
         } else {
-            console.log("Oops No Account Found! Redirecting to Sign Up.");
-            window.location.href = './signUp.html';
+            showAlert("Login successful!! Redirecting...", "success");
+            setTimeout(() => {
+                window.location.href = './dashboard.html';
+            }, "1000");
         };
+
+        // clearing inputs
+        document.querySelectorAll("input").forEach(input => input.value = "");
     }
+    
 });

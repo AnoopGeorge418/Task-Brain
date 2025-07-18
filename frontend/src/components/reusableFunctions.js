@@ -18,3 +18,4 @@ export function saveDummyCreds(newUser) {
     userDummyCredentials.push(newUser);
     localStorage.setItem("dummyCreds", JSON.stringify(userDummyCredentials));
 }
+

@@ -57,14 +57,6 @@ body {
     cursor: pointer;
 }
 
-.forgotPass {
-    color: black;
-    cursor: pointer;
-}
-
-.forgotPass:hover {
-    color: rgb(60, 60, 60);
-}
 
 .successAndErrorMsg {
     position: absolute;
@@ -83,3 +75,4 @@ body {
     font-size: 1.3rem;
     display: none;
 }
+

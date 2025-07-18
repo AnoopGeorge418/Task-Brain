@@ -56,3 +56,30 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+
+.forgotPass {
+    color: black;
+    cursor: pointer;
+}
+
+.forgotPass:hover {
+    color: rgb(60, 60, 60);
+}
+
+.successAndErrorMsg {
+    position: absolute;
+    margin-left: 30rem;
+    margin-top: -28rem;
+}
+
+.successAndErrorMsg .alertMsg {
+    color: white;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 1rem;
+    background-color: rgb(239, 239, 239);
+    border-radius: .5rem;
+    width: 20rem;
+    text-align: center;
+    font-size: 1.3rem;
+    display: none;
+}

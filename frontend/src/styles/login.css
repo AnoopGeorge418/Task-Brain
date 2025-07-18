@@ -1,0 +1,58 @@
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    background-color: rgb(139, 152, 156);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.login_container {
+    padding: 5rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    text-align: center;
+    background: linear-gradient(rgb(39, 39, 39), rgb(228, 248, 255));
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.login_form input {
+    width: 20rem;
+    height: 2rem;
+    border-radius: .5rem;
+    padding: .5rem;
+    margin-top: 1rem;
+}
+
+.login_form button {
+    width: 10rem;
+    height: 3rem;
+    border-radius: .5rem;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+.login_form button:hover {
+    transform: translate(.1rem, 20%);
+    background: linear-gradient(rgb(39, 39, 39), rgb(228, 248, 255));
+}
+
+.login_greetings p {
+    margin-top: -1rem;
+}
+
+.login_greetings span:hover {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
